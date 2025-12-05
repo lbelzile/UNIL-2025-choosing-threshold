@@ -512,7 +512,7 @@ Define
 - $u_t=F^{-1}(1-1/t)$ be the $1-1/t$ quantile of $F,$
 - $\sigma_t = r(u_t),$ where $r(t) = \{1-F(t)\}/f(t)$ is the reciprocal hazard function,
 - $\xi_t = r'(u_t)$ is the penultimate approximation to the shape.
-- $A(t) =\xi_t - \xi,$ assuming $u_t$ is twice differentiable and $u_t'$ is eventually positive.
+- $A(t) =\xi_t - \xi,$ assuming $u_t$ is twice differentiable.
 
 :::
 
@@ -678,128 +678,9 @@ Problems:
 ## Graphical stability plots
 
 ```{r}
-
-# Mean residual life plot
-mrl <- evd::mrlplot(data = rain, tlim = range(u))
-langousis <- automrl(
-  rain,
-  thresh = u,
-  plot = TRUE
-)
-g01 <- ggplot(
-  data = data.frame(
-    cbind(x = mrl$x, mrl$y)
-  ),
-  mapping = aes(
-    x = x,
-    y = mrl,
-    ymin = lower,
-    ymax = upper
-  )
-) +
-  geom_errorbar(col = "grey90") +
-  geom_point(cex = 0.5) +
-  geom_line() +
-  geom_abline(
-    slope = langousis$slope,
-    intercept = langousis$intercept,
-    linetype = "dashed"
-  ) +
-  scale_x_continuous(expand = expansion()) +
-  labs(
-    x = "quantile (in mm)",
-    y = "",
-    subtitle = "mean residual life"
-  ) +
-  theme_minimal()
-# Parameter stability plots
-tstab <- mev::tstab.gpd(
-  xdat = rain,
-  thresh = u,
-  method = "wald",
-  plot = FALSE
-)
-tstab_df <- data.frame(
-  y = tstab$mle[, 'shape'],
-  lower = tstab$lower[, 'shape'],
-  upper = tstab$upper[, 'shape'],
-  q = qlev,
-  u = u
-)
-# Wadsworth diagnostics
-wdiag <- mev::W.diag(
-  xdat = rain,
-  model = "nhpp",
-  u = u,
-  plots = NULL
-)
-tstab2_df <- data.frame(
-  qlev = c(qlev, rev(qlev)),
-  u = c(u, rev(u)),
-  shape = c(
-    wdiag$MLE[, 'shape'],
-    rev(wdiag$MLE[, 'shape'])
-  ),
-  interv = c(
-    qnorm(0.025) * sqrt(diag(wdiag$Cov)) + wdiag$MLE[, 'shape'],
-    rev(qnorm(0.975) * sqrt(diag(wdiag$Cov)) + wdiag$MLE[, 'shape'])
-  )
-)
-
-g02 <- ggplot() +
-  geom_polygon(
-    data = tstab2_df,
-    mapping = aes(
-      x = u,
-      y = interv
-    ),
-    fill = "grey70",
-    alpha = 0.25
-  ) +
-  geom_point(
-    data = tstab2_df,
-    mapping = aes(x = u, y = shape)
-  ) +
-  scale_y_continuous(
-    breaks = seq(-0.25, 0.5, by = 0.25),
-    labels = c("-0.25", "0", "0.25", "0.5"),
-    limits = c(-0.30, 0.55),
-    expand = expansion(),
-    oob = scales::squish
-  ) +
-  labs(
-    x = "quantile (in mm)",
-    y = "",
-    subtitle = "shape"
-  ) +
-  theme_minimal()
-
-
-# Hill estimator
-hill <- mev::shape.hill(xdat = rain, k = 20:500)
-# Eyeballing
-eyeball <- tea::eye(data = rain)
-g03 <- ggplot(
-  data = hill,
-  mapping = aes(
-    x = k,
-    y = shape,
-    ymin = shape + qnorm(0.025) * shape / sqrt(k),
-    ymax = shape + qnorm(0.975) * shape / sqrt(k)
-  )
-) +
-  geom_pointrange(col = "grey90", size = 1) +
-  geom_point(cex = 0.5) +
-  labs(
-    x = expression("number of exceedances (log"[10] * ")"),
-    y = "",
-    subtitle = "shape"
-  ) +
-  scale_x_continuous(transform = "log10") +
-  theme_minimal()
-
-g01 + g02 + g03
+knitr::include_graphics("figures/padova_visualdiag.png-1.png")
 ```
+
 
 :::{.notes}
 
