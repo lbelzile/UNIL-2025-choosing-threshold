@@ -256,7 +256,7 @@
     "href": "UNIL-choosing_threshold.html#bayesian-predictive-distribution",
     "title": "Choosing the threshold in extreme value analysis",
     "section": "Bayesian predictive distribution",
-    "text": "Bayesian predictive distribution\n\nNorthrop, Attalides, and Jonathan (2017) propose a Bayesian method based on leave-one-out cross validation with a binomial-generalized Pareto (BGP) model and a single validation threshold \\(v &gt; u_k\\) above which we assess the model performance.\nThe measure of goodness-of-fit proposed is an estimate of the negated Kullback–Leibler divergence, \\[\\begin{align*}\n\\widehat{T}_v(u_j) = \\sum_{i=1}^n \\log\\widehat{f}_v(x_r \\mid \\boldsymbol{x}_{-r}, u_j).\n\\end{align*}\\] The selected threshold is the one maximizing this diagnostic.\nCan use Bayesian model averaging to account for the uncertainty originating from threshold selection."
+    "text": "Bayesian predictive distribution\n\nNorthrop, Attalides, and Jonathan (2017) propose a Bayesian method based on leave-one-out cross validation with a binomial-generalized Pareto (BGP) model and a single validation threshold \\(v &gt; u_k\\) above which we assess the model performance.\nThe measure of goodness-of-fit proposed is an estimate of the negated Kullback–Leibler divergence, \\[\\begin{align*}\n\\widehat{T}_v(u_j) = \\sum_{r=1}^{n_u} \\log\\widehat{f}_v(x_r \\mid \\boldsymbol{x}_{-r}, u_j).\n\\end{align*}\\] The selected threshold is the one maximizing this diagnostic.\nCan use Bayesian model averaging to account for the uncertainty originating from threshold selection."
   },
   {
     "objectID": "UNIL-choosing_threshold.html#bayesian-measures",

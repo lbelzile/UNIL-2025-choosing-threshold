@@ -1108,7 +1108,7 @@ g33 + g31
 
 The measure of goodness-of-fit proposed is an estimate of the negated Kullback--Leibler divergence,
 \begin{align*}
- \widehat{T}_v(u_j) = \sum_{i=1}^n \log\widehat{f}_v(x_r \mid \boldsymbol{x}_{-r}, u_j).
+ \widehat{T}_v(u_j) = \sum_{r=1}^{n_u} \log\widehat{f}_v(x_r \mid \boldsymbol{x}_{-r}, u_j).
 \end{align*}
 The selected threshold is the one maximizing this diagnostic. 
 
