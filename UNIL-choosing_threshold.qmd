@@ -308,7 +308,7 @@ g00 <- ggplot(data = post_df, aes(x = Nmean + ui)) +
   geom_density() +
   scale_x_continuous(limits = c(50, 350)) +
   scale_y_continuous(limits = c(0, NA), expand = expansion()) +
-  labs(x = "expected value of 50 year maximum",
+  labs(x = "expected value of 100 year maximum",
        subtitle = "posterior density",
        y = "") +
   theme_classic()
@@ -338,7 +338,7 @@ g01 <- ggplot(data = data.frame(
                 alpha = 0.1) +
   geom_line() + 
   scale_y_continuous(limits = c(NA,0), expand = expansion()) +
-  labs(x = "expected value of 50 year maximum",
+  labs(x = "expected value of 100 year maximum",
       subtitle = "neg. profile log likelihood", y = "") +
   theme_classic()
 # plot(prof_gpd)
@@ -451,8 +451,9 @@ The variance of the MLE of $\xi$ is $(1+\xi)^2,$ versus $\xi^2$ for the Hill est
 #| label: fig-shapequant
 #| fig-cap: "Estimates of shape (left) and 100-year return level (right) as a function $n_u$ corresponding to threshold $X_{(n-n_u)}.$"
 load("/home/lbelzile/Documents/Dropbox/Publications/Ongoing/Threshold/Code/application/simulation_shapes.RData")
+g_quant <- g_quant + ggplot2::scale_y_continuous(transform = "identity")
 g_shape +
-  g_quant +
+  (g_quant) +
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom")
 ```
